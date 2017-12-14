@@ -25,7 +25,7 @@ $('#but').click(function () {
     for (var i = 0; i < data.length; i++) {
       var edit = '<a href="#" class="edit" data-idb="' + data[i]._id + '"> <i class="fa fa-pencil-square-o"></i></a>'
       var deletes = '<a href="#" class="delete" data-idb="' + data[i]._id + '" data-nome="' + data[i].nome + '"> <i class="fa fa-trash"></i></a>'
-      $('#chegou').append('<tr><td>' + data[i].nome + '</td><td>' + data[i].data_inicio + '</td><td>' + data[i].data_fim + '</td><td>' + data[i].data_limite + '</td><td>' + data[i].extensao + '</td><td>' + data[i].pesquisa + '</td><td>' + data[i].ensino + '</td><td>' + edit + deletes + '</td></tr>')
+      $('#chegou').append('<tr><td>' + data[i].nome + '</td><td>' + data[i].data_inicio + '</td><td>' + data[i].data_fim + '</td><td>' + data[i].data_limite + '</td><td> <span class="badge badge-primary">' + data[i].extensionista_extensao + '</span> <span class="badge badge-success">' + data[i].extensionista_pesquisa + '</span> <span class="badge badge-info">' + data[i].extensionista_ensino + '</span></td><td> <span class="badge badge-primary">' + data[i].pesquisador_extensao + '</span> <span class="badge badge-success">' + data[i].pesquisador_pesquisa + '</span> <span class="badge badge-info">' + data[i].pesquisador_ensino + '</span></td><td> <span class="badge badge-primary">' + data[i].professor_extensao + '</span> <span class="badge badge-success">' + data[i].professor_pesquisa + '</span> <span class="badge badge-info">' + data[i].professor_ensino + '</span></td><td>' + edit + deletes + '</td></tr>')
     }
   })
 })
