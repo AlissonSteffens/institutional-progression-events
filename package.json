@@ -1,0 +1,37 @@
+{
+  "name": "portugol-webservice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "standard",
+    "dev": "nodemon server.js"
+  },
+  "standard": {
+    "ignore": [
+      "node_modules/"
+    ],
+    "globals": [
+      "alert",
+      "jQuery",
+      "$"
+    ]
+  },
+  "author": "Alisson Steffens",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/npm/npm.git"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "mongodb": "^2.2.33",
+    "pug": "^2.0.0-rc.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0",
+    "standard": "^10.0.3"
+  }
+}

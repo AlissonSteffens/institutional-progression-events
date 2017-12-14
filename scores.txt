@@ -1,0 +1,4 @@
+necessidade_nula: < 0.6
+necessidade_baixa: 0.7<x<1.5 
+necessidade_media: 1.6<x<2.5
+necessidade_alta: 2.6 < x
