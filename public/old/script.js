@@ -30,6 +30,46 @@ $('#but').click(function () {
   })
 })
 
+$(function () {
+  $('#inicio').datetimepicker({
+    format: 'L'
+  })
+  $('#fim').datetimepicker({
+    format: 'L'
+  })
+  $('#limite').datetimepicker({
+    format: 'L'
+  })
+})
+
+$(document).on('click', '#criar', function (event) {
+  event.preventDefault()
+  $('#criate').modal('show')
+  console.log('abcd')
+  console.log($(this).data('idb'))
+})
+
+function addUser(event) {
+  // user vars
+  let usernameField = $('#username-field')
+  let username = usernameField.val()
+  // nanana vars
+  $.ajax({
+    url: '/api/events',
+    dataType: 'text',
+    type: 'post',
+    contentType: 'application/x-www-form-urlencoded',
+    data: 'name=' + username,
+    success: function (data, textStatus, jQxhr) {
+    },
+    error: function (jqXhr, textStatus, errorThrown) {
+      alert('Error: ' + errorThrown)
+    }
+  })
+
+  event.preventDefault()
+}
+
 $(document).on('click', '.edit', function (event) {
   event.preventDefault()
   $('#myModal').modal('show')
@@ -47,15 +87,14 @@ $(document).on('click', '.delete', function (event) {
   })
   $('#delete').modal('show')
 })
-$('#number').click(function () {
-  $('#get-turma').modal('show')
-})
+
 $('#send-class').click(function () {
   classNum = $('#input-class').val()
   $('#number').html('Turma ' + classNum)
   $('#get-turma').modal('hide')
   $('#but').click()
 })
+
 $('#turma').click(function () {
   $.get('/api/class', function (data) {
     classNum = data.value
