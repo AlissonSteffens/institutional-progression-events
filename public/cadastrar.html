@@ -21,7 +21,7 @@
     <link href="assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
 
     <!-- Date Picker -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+    <!-- <link href="assets/css/bootstrap-datepicker.css" rel="stylesheet" />   -->
 
     <!--  Meu CSS    -->
     <link href="assets/css/styles.css" rel="stylesheet"/>
@@ -125,63 +125,75 @@
                                         </div>
                                     </div>
                                     <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="inicio">Data Início</label>
+                                            <input class="datepicker form-control" type="date" id="inicio"/>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="fim">Data Fim</label>
+                                            <input class="datepicker form-control" type="date" id="fim"/>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="limite">Data Limite</label>
+                                            <input class="datepicker form-control" type="date" id="limite"/>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="predominancia extensao mb-3">
+                                        <h5>Predominancia em Extensão</h5>
+                                        <div class="row">  
                                             <div class="col-md-4 mb-3">
-                                                <label for="inicio">Data Início</label>
-                                                <div class="form-group">
-                                                    <div class="input-group date" id="inicio" data-target-input="nearest">
-                                                        <input type="text" class="form-control datetimepicker-input" data-target="#inicio"/>
-                                                        <div class="input-group-append" data-target="#inicio" data-toggle="datetimepicker">
-                                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <label for="inicio">Pontuação Minima Extensão</label>
+                                                <input class="datepicker form-control" type="number" value="0" id="ext-ext"/>
                                             </div>
                                             <div class="col-md-4 mb-3">
-                                                <label for="fim">Data Fim</label>
-                                                <input type="text"  class="form-control" value="02-16-2012" id="fim">
+                                                <label for="fim">Pontuação Minima Pesquisa</label>
+                                                <input class="datepicker form-control" type="number" value="0" id="ext-pes"/>
                                             </div>
                                             <div class="col-md-4 mb-3">
-                                                <label for="limite">Data Limite</label>
-                                                <input type="text"  class="form-control" value="02-16-2012" id="limite">
-                                               
-                                            </div>
-                                        </div>
-                        
-                                    <div class="mb-3">
-                                        <label for="username">Username</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                            <span class="input-group-text">@</span>
-                                            </div>
-                                            <input type="text" class="form-control" id="username" placeholder="Username" required="">
-                                            <div class="invalid-feedback" style="width: 100%;">
-                                            Your username is required.
+                                                <label for="limite">Pontuação Minima Ensino</label>
+                                                <input class="datepicker form-control" type="number" value="0" id="ext-ens"/>
                                             </div>
                                         </div>
                                     </div>
-                        
-                                    <div class="mb-3">
-                                        <label for="email">Email <span class="text-muted">(Optional)</span></label>
-                                        <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                                        <div class="invalid-feedback">
-                                            Please enter a valid email address for shipping updates.
+                                    <div class="predominancia ensino mb-3">
+                                        <h5>Predominancia em Ensino</h5>
+                                        <div class="row">  
+                                            <div class="col-md-4 mb-3">
+                                                <label for="inicio">Pontuação Minima Extensão</label>
+                                                <input class="datepicker form-control" type="number" value="0" id="ens-ext"/>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="fim">Pontuação Minima Pesquisa</label>
+                                                <input class="datepicker form-control" type="number" value="0" id="ens-pes"/>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="limite">Pontuação Minima Ensino</label>
+                                                <input class="datepicker form-control" type="number" value="0" id="ens-ens"/>
+                                            </div>
                                         </div>
                                     </div>
-                        
-                                    <div class="mb-3">
-                                        <label for="address">Address</label>
-                                        <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
-                                        <div class="invalid-feedback">
-                                            Please enter your shipping address.
+                                    <div class="predominancia pesquisa mb-3">
+                                        <h5>Predominancia em Pesquisa</h5>
+                                        <div class="row">  
+                                            <div class="col-md-4 mb-3">
+                                                <label for="inicio">Pontuação Minima Extensão</label>
+                                                <input class="datepicker form-control" type="number" value="0" id="pes-ext"/>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="fim">Pontuação Minima Pesquisa</label>
+                                                <input class="datepicker form-control" type="number" value="0" id="pes-pes"/>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="limite">Pontuação Minima Ensino</label>
+                                                <input class="datepicker form-control" type="number" value="0" id="pes-ens"/>
+                                            </div>
                                         </div>
                                     </div>
-                        
-                                    <div class="mb-3">
-                                        <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                                        <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-                                    </div>
-                        
-                        
+                                    
+
+
                                     <hr class="mb-4">
                                     <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
                                 </form>
@@ -233,8 +245,7 @@
     <script src="assets/js/bootstrap-notify.js"></script>
 
     <!-- Date Picker -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- <script src="assets/js/bootstrap-datepicker.js"></script> -->
 
     <!--  Google Maps Plugin    -->
     <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
@@ -244,13 +255,6 @@
 
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script>
-        $(function () {
-            $('#inicio').datetimepicker();
-        });
-        //$('.datepicker').datepicker()
-        // $('#inicio').datetimepicker()
-        // $('#fim').datetimepicker()
-        // $('#limite').datetimepicker()
     </script>
     
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project!
