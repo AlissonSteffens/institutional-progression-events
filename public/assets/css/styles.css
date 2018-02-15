@@ -11,10 +11,8 @@
 .pesquisa{
     border-left: 5px solid #FF9F3B;
 }
-.chart-ico{
-    text-align: center;
+.chart-icon{
     margin-top: -10rem;
-    font-size: 10rem;
 }
 .chart-desc{
     text-align: center;
@@ -32,4 +30,9 @@
 #charts{
     margin-top: 2rem;
     margin-bottom: 2rem;
+}
+#test{
+    fill: #FF9F3B;
+    color: #F93248;
+    background: #555;
 }
