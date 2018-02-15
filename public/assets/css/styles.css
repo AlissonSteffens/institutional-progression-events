@@ -11,3 +11,25 @@
 .pesquisa{
     border-left: 5px solid #FF9F3B;
 }
+.chart-ico{
+    text-align: center;
+    margin-top: -10rem;
+    font-size: 10rem;
+}
+.chart-desc{
+    text-align: center;
+    color: #555;
+}
+.ext{
+    color: #22CBE9;
+}
+.ens{
+    color: #F93248;
+}
+.pes{
+    color: #FF9F3B;
+}
+#charts{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
