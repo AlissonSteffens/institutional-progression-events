@@ -20,11 +20,22 @@
     <!--  Light Bootstrap Table core CSS    -->
     <link href="assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
 
+    <!--  Meu CSS    -->
+    <link href="assets/css/styles.css" rel="stylesheet"/>
+
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
-
+    <style>
+        .progress {
+            height: 300px;
+        }
+        .progress > svg {
+            height: 100%;
+            display: block;
+        }
+    </style>
 </head>
 <body>
 
@@ -92,8 +103,11 @@
                             <div class="content">
                                 <form class="needs-validation" novalidate="">
                                     <div class="row">
-                                        <div class="col-md-9 mb-3">
+                                        <div class="col-md-5 mb-3">
                                             <input type="number" class="form-control" id="codigo" placeholder="Código do Docente" value="" required="">
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <input type="number" class="form-control" id="evento" placeholder="Evento" value="" required="">
                                         </div>
                                         <div class="col-md-3 mb-3">
                                             <button class="btn btn-primary btn-block" type="submit">Continue</button>
@@ -101,6 +115,27 @@
                                         
                                     </div>
                                 </form>
+                                <div id="charts">
+                                    <div class="row" >
+                                        <div class="col-md-4">
+                                            <div id="ext"></div>
+                                            <p class="chart-ico ext"><i class="pe-7s-world"></i></p>
+                                            <p class="chart-desc">Extensão <span class="ext">50/100</span> </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div id="ens"></div>
+                                            <p class="chart-ico ens"><i class="pe-7s-notebook"></i></p>
+                                            <p class="chart-desc">Ensino <span class="ens">50/100</span> </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div id="pes"></div>
+                                            <p class="chart-ico pes"><i class="pe-7s-search"></i></p>
+                                            <p class="chart-desc">Pesquisa <span class="pes">50/100</span> </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                                 <div class="footer">
                                     <hr>
                                     <div class="stats">
@@ -123,18 +158,6 @@
         </footer>
 
     </div>
-    <div id="delete" class="modal">
-        <div role="document" class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <div id="delete-header" class="modal-title">Apagar</div>
-                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
-            </div>
-            <div id="delete-body" class="modal-body">Apagar </div>
-            <div class="modal-footer"><a id="delete-sim" href="#" class="btn btn-danger">Sim</a><a data-dismiss="modal" class="btn btn-primary">Cancelar</a></div>
-            </div>
-        </div>
-    </div>
         
 </div>
 
@@ -150,17 +173,51 @@
 	<!--  Charts Plugin -->
 	<script src="assets/js/chartist.min.js"></script>
 
-    <!--  Notifications Plugin    -->
-    <script src="assets/js/bootstrap-notify.js"></script>
-
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 	<script src="assets/js/light-bootstrap-dashboard.js"></script>
 
-    <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
-    <script src="assets/js/script.js"></script>
+    
+    <script src="assets/js/progressbar.min.js"></script>
+    <script>
+        window.onload = function onLoad() {
+            var barExt = new ProgressBar.SemiCircle(ext, {
+                strokeWidth: 6,
+                easing: 'easeInOut',
+                duration: 1400,
+                color: '#22CBE9',
+                trailColor: '#eee',
+                trailWidth: 1,
+                svgStyle: null
+            });
+
+            barExt.animate(0.50);  // Number from 0.0 to 1.0
+
+            var barEns = new ProgressBar.SemiCircle(ens, {
+                strokeWidth: 6,
+                easing: 'easeInOut',
+                duration: 1400,
+                color: '#F93248',
+                trailColor: '#eee',
+                trailWidth: 1,
+                svgStyle: null
+            });
+
+            barEns.animate(0.25);  // Number from 0.0 to 1.0
+
+            var barPes = new ProgressBar.SemiCircle(pes, {
+                strokeWidth: 6,
+                easing: 'easeInOut',
+                duration: 1400,
+                color: '#FF9F3B',
+                trailColor: '#eee',
+                trailWidth: 1,
+                svgStyle: null
+            });
+
+            barPes.animate(0.80);  // Number from 0.0 to 1.0
+        }
+    </script>
     
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project!
     <script src="assets/js/demo.js"></script> -->
