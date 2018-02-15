@@ -96,26 +96,25 @@
                                 <h4 class="title">Cadastrar Eventos</h4>
                             </div>
                             <div class="content">
-                                <form class="needs-validation" novalidate="">
+                                <form class="formulario" novalidate="" onsubmit="return mensagem() ">
                                     <div class="row">
                                         <div class="col-md-12 mb-3">
                                             <label for="firstName">Nome Evento</label>
-                                            <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+                                            <input type="text" class="form-control" id="nome-evento" placeholder="" value="" required="">
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-4 mb-3">
-                                            <label for="inicio">Data Início</label>
-                                            <input class="datepicker form-control" type="date" id="inicio"/>
-                                        </div>
-                                        <div class="col-md-4 mb-3">
-                                            <label for="fim">Data Fim</label>
-                                            <input class="datepicker form-control" type="date" id="fim"/>
-                                        </div>
-                                        <div class="col-md-4 mb-3">
-                                            <label for="limite">Data Limite</label>
-                                            <input class="datepicker form-control" type="date" id="limite"/>
-                                            
+	                                        <div class="col-md-4 mb-3">
+	                                            <label for="inicio">Data Início</label>
+	                                            <input class="datepicker form-control" type="date" id="inicio"/>
+	                                        </div>
+	                                        <div class="col-md-4 mb-3">
+	                                            <label for="fim">Data Fim</label>
+	                                            <input class="datepicker form-control" type="date" id="fim"/>
+	                                        </div>
+	                                        <div class="col-md-4 mb-3">
+	                                            <label for="limite">Data Limite</label>
+	                                            <input class="datepicker form-control" type="date" id="limite"/>
                                         </div>
                                     </div>
                                     
@@ -224,6 +223,62 @@
 
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script>
+		function mensagem(msg){		
+			var nome = document.getElementById('nome-evento');
+			
+			var inicio = document.getElementById('inicio');
+			var fim = document.getElementById('fim');
+			var limite = document.getElementById('limite');
+
+			var extext = document.getElementById('ext-ext');
+			var extpes = document.getElementById('ext-pes');
+			var extens = document.getElementById('ext-ens');
+
+			var ensext = document.getElementById('ens-ext');
+			var enspes = document.getElementById('ens-pes');
+			var ensens = document.getElementById('ens-ens');
+
+			var pesext = document.getElementById('pes-ext');
+			var pespes = document.getElementById('pes-pes');
+			var pesens = document.getElementById('pes-ens');
+
+			if(nome.value == ""){
+				//alert(msg);
+				alert("Nome em branco");
+				return false;
+			}
+			
+            if(!VerificarData(inicio.value) || !VerificarData(fim.value) || !VerificarData(limite.value)){
+				alert("Data invalida");
+				return false;
+			}
+
+			if(extext.value < 0 || extpes.value < 0 || extens.value < 0){
+				//alert(msg);
+				alert("Extensão abaixo de zero");
+				return false;		
+			}
+
+			if(ensext.value < 0 || enspes.value < 0 || ensens.value < 0){
+				//alert(msg);
+				alert("Ensino abaixo de zero");
+				return false;		
+			}
+
+			if(pesext.value < 0 || pespes.value < 0 || pesens.value < 0){
+				//alert(msg);
+				alert("Pesquisa abaixo de zero");
+				return false;		
+			}
+
+		}
+
+        function VerificarData(data){
+            if(data == ""){
+                return false;
+            }
+            return true;
+        }
     </script>
     
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project!
