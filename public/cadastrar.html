@@ -114,7 +114,7 @@
 	                                        </div>
 	                                        <div class="col-md-4 mb-3">
 	                                            <label for="limite">Período de avaliação</label>
-	                                            <input class="form-control" type="number" id="limite"/>
+	                                            <input class="form-control" type="number" value="0" id="limite"/>
                                         </div>
                                     </div>
                                     
@@ -248,10 +248,17 @@
 				return false;
 			}
 			
-            if(!VerificarData(inicio.value) || !VerificarData(fim.value) || !VerificarData(limite.value)){
-				alert("Data invalida");
-				return false;
-			}
+            if(!VerificarData(inicio.value) || !VerificarData(fim.value) || limite.value <= 0){
+                //alert(msg);
+                alert("Data invalida");    
+                return false;
+            }
+
+            if(inicio.value >= fim.value){
+                //alert(msg);
+                alert("Data de inicio maior que a final");    
+                return false;
+            }
 
 			if(extext.value < 0 || extpes.value < 0 || extens.value < 0){
 				//alert(msg);
@@ -269,15 +276,34 @@
 				//alert(msg);
 				alert("Pesquisa abaixo de zero");
 				return false;		
-			}
-
+            }
+            
+            return true;
 		}
 
         function VerificarData(data){
             if(data == ""){
                 return false;
+            }else if(data < hoje()){
+                console.log("data inferior");
+                return false;
             }
             return true;
+        }
+
+        function hoje(){
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1;
+            var yyyy = today.getFullYear();
+            if(dd<10){
+                dd='0'+dd;
+            } 
+            if(mm<10){
+                mm='0'+mm;
+            } 
+            var today = yyyy+'-'+mm+'-'+dd;
+            return today;
         }
     </script>
     
