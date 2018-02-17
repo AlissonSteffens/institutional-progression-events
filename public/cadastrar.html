@@ -96,7 +96,7 @@
                                 <h4 class="title">Cadastrar Eventos</h4>
                             </div>
                             <div class="content">
-                                <form class="formulario" novalidate="" onsubmit="return mensagem() ">
+                                <form class="formulario" id="cadastro" novalidate="" onsubmit="return mensagem() ">
                                     <div class="row">
                                         <div class="col-md-12 mb-3">
                                             <label for="firstName">Nome Evento</label>
@@ -278,7 +278,7 @@
 				return false;		
             }
             
-            return true;
+            return addEvent();
 		}
 
         function VerificarData(data){
@@ -304,6 +304,40 @@
             } 
             var today = yyyy+'-'+mm+'-'+dd;
             return today;
+        }      
+
+        function addEvent (){
+            $ids = $('#cadastro input[id]').map(function() {
+                return document.getElementById(this.id).value;
+            }).get();       
+
+            $.ajax({
+                url: '/api/events',
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: 'nome=' + $ids[0] + 
+                '&data_inicio=' + $ids[1] + 
+                '&data_fim=' + $ids[2] + 
+                '&data_limite=' + $ids[3] +
+                '&extensionista_extensao=' + $ids[4] + 
+                '&extensionista_pesquisa=' + $ids[5] + 
+                '&extensionista_ensino=' + $ids[6] + 
+                '&professor_extensao=' + $ids[7] + 
+                '&professor_pesquisa=' + $ids[8] + 
+                '&professor_ensino=' + $ids[9] + 
+                '&pesquisador_extensao=' + $ids[10] +
+                '&pesquisador_pesquisa=' + $ids[11] +
+                '&pesquisador_ensino=' + $ids[12],
+                success: function (data, textStatus, jQxhr) {
+                    alert("Evento inserido")
+                    return true;
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    alert('Error: ' + errorThrown)
+                    return false;
+                }
+            })
         }
     </script>
     
