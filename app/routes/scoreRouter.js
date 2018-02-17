@@ -1,8 +1,7 @@
 const express = require('express')
 const asyncHandler = require('../utils/asyncHandler')
 const dbController = require('../controllers/dbController')
-const mongoose = require('mongoose')
-const Score = mongoose.model('Score')
+const Score = require('../models/score')
 
 const router = express.Router()
 

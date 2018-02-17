@@ -1,9 +1,10 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require('../../config/db')
 
-const ClassSchema = new Schema({
+const ClassSchema = {
   name: String,
   value: Number
-})
+}
 
-mongoose.model('Classs', ClassSchema)
+const Classs = mongoose.model('Classs', ClassSchema)
+
+module.exports = Classs

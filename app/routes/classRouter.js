@@ -1,7 +1,6 @@
 const express = require('express')
 const dbController = require('../controllers/dbController')
-const mongoose = require('mongoose')
-const Classs = mongoose.model('Classs')
+const Classs = require('../models/class')
 const asyncHandler = require('../utils/asyncHandler')
 
 const router = express.Router()

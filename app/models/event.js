@@ -1,7 +1,6 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require('../../config/db')
 
-const EventSchema = new Schema({
+const EventSchema = {
   nome: String,
   data_inicio: String,
   data_fim: String,
@@ -15,6 +14,8 @@ const EventSchema = new Schema({
   extensionista_extensao: Number,
   extensionista_ensino: Number,
   extensionista_pesquisa: Number
-})
+}
 
-mongoose.model('Event', EventSchema)
+const Event = mongoose.model('Event', EventSchema)
+
+module.exports = Event

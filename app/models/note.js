@@ -1,9 +1,10 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require('../../config/db')
 
-const NoteSchema = new Schema({
+const NoteSchema = {
   text: String,
   title: String
-})
+}
 
-mongoose.model('Note', NoteSchema)
+const Note = mongoose.model('Note', NoteSchema)
+
+module.exports = Note
