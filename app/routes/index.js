@@ -1,9 +1,10 @@
-const eventRoutes = require('./event_routes')
-const pageRoutes = require('./page_routes')
+const express = require('express')
 
-module.exports = function (app, db) {
-  // noteRoutes(app, db);
-  // Other route groups could go here, in the future
-  pageRoutes(app, db)
-  eventRoutes(app, db)
-}
+const router = express.Router()
+
+router.get('/', (req, res) => {
+  res.type('text/html')
+  res.sendfile('public/index.html')
+})
+
+module.exports = router
