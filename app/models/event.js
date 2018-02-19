@@ -4,7 +4,7 @@ const EventSchema = {
   nome: String,
   data_inicio: String,
   data_fim: String,
-  data_limite: String,
+  data_limite: Number,
   pesquisador_extensao: Number,
   pesquisador_ensino: Number,
   pesquisador_pesquisa: Number,

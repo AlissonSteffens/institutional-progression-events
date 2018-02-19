@@ -18,6 +18,8 @@ router.delete('/:evento', async (req, res) => {
 router.post('/', async (req, res) => {
   const result = await asyncHandler.handleAsyncMethod(dbController.createSchema, [Event, req.body])
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
+  // console.log('WTF: ')
+  // console.log(result)
 })
 
 module.exports = router

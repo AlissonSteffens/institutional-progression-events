@@ -96,7 +96,7 @@
                                 <h4 class="title">Cadastrar Eventos</h4>
                             </div>
                             <div class="content">
-                                <form class="formulario" id="cadastro" novalidate="" onsubmit="return mensagem() ">
+                                <form class="formulario" id="cadastro" novalidate="">
                                     <div class="row">
                                         <div class="col-md-12 mb-3">
                                             <label for="firstName">Nome Evento</label>
@@ -169,11 +169,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
-
-
                                     <hr class="mb-4">
-                                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                                    <button class="btn btn-primary btn-lg btn-block" type="button" id="continue">Continue to checkout</button>
                                 </form>
                                 <div class="footer">
                                 </div>         
@@ -223,7 +220,16 @@
 
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script>
-		function mensagem(msg){		
+        $('#continue').click(function (evt) {
+            if(validar()){
+                addEvent()
+            }
+
+            evt.preventDefault()            
+            return false
+        })
+
+		function validar(){		
 			var nome = document.getElementById('nome-evento');
 			
 			var inicio = document.getElementById('inicio');
@@ -254,11 +260,11 @@
                 return false;
             }
 
-            if(inicio.value >= fim.value){
+            // if(inicio.value >= fim.value){
                 //alert(msg);
-                alert("Data de inicio maior que a final");    
-                return false;
-            }
+                // alert("Data de inicio maior que a final");    
+                // return false;
+            // }
 
 			if(extext.value < 0 || extpes.value < 0 || extens.value < 0){
 				//alert(msg);
@@ -277,17 +283,18 @@
 				alert("Pesquisa abaixo de zero");
 				return false;		
             }
-            
-            return addEvent();
+            return true;
 		}
 
         function VerificarData(data){
+            console.log(data)
             if(data == ""){
                 return false;
-            }else if(data < hoje()){
-                console.log("data inferior");
-                return false;
             }
+            // else if(data < hoje()){
+            //     console.log("data inferior");
+            //     return false;
+            // }
             return true;
         }
 
@@ -307,37 +314,46 @@
         }      
 
         function addEvent (){
-            $ids = $('#cadastro input[id]').map(function() {
+            var ids = $('#cadastro input[id]').map(function() {
                 return document.getElementById(this.id).value;
-            }).get();       
+            }).get();
+
+            var dados = {}
+
+            dados.nome = ids[0]
+            dados.data_inicio = ids[1]
+            dados.data_fim = ids[2]
+            dados.data_limite = parseInt(ids[3])
+            dados.extensionista_extensao = parseInt(ids[4])
+            dados.extensionista_pesquisa = parseInt(ids[5])
+            dados.extensionista_ensino = parseInt(ids[6])
+            dados.professor_extensao = parseInt(ids[7])
+            dados.professor_pesquisa = parseInt(ids[8])
+            dados.professor_ensino = parseInt(ids[9])
+            dados.pesquisador_extensao = parseInt(ids[10])
+            dados.pesquisador_pesquisa = parseInt(ids[11])
+            dados.pesquisador_ensino = parseInt(ids[12])
+
+            console.log(JSON.stringify(dados))
 
             $.ajax({
                 url: '/api/events',
                 dataType: 'text',
-                type: 'post',
-                contentType: 'application/x-www-form-urlencoded',
-                data: 'nome=' + $ids[0] + 
-                '&data_inicio=' + $ids[1] + 
-                '&data_fim=' + $ids[2] + 
-                '&data_limite=' + $ids[3] +
-                '&extensionista_extensao=' + $ids[4] + 
-                '&extensionista_pesquisa=' + $ids[5] + 
-                '&extensionista_ensino=' + $ids[6] + 
-                '&professor_extensao=' + $ids[7] + 
-                '&professor_pesquisa=' + $ids[8] + 
-                '&professor_ensino=' + $ids[9] + 
-                '&pesquisador_extensao=' + $ids[10] +
-                '&pesquisador_pesquisa=' + $ids[11] +
-                '&pesquisador_ensino=' + $ids[12],
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(dados),
                 success: function (data, textStatus, jQxhr) {
-                    alert("Evento inserido")
+                    console.log("Evento inserido")
                     return true;
                 },
                 error: function (jqXhr, textStatus, errorThrown) {
-                    alert('Error: ' + errorThrown)
+                    console.log('Error: ')
+                    console.log(errorThrown)
                     return false;
                 }
             })
+
+
         }
     </script>
     
