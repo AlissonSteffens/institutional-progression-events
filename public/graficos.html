@@ -103,14 +103,21 @@
                             <div class="content">
                                 <form class="needs-validation" novalidate="">
                                     <div class="row">
-                                        <div class="col-md-5 mb-3">
+                                        <div class="col-md-3 mb-3">
                                             <input type="number" class="form-control" id="codigo" placeholder="Código do Docente" value="" required="">
                                         </div>
-                                        <div class="col-md-4 mb-3">
-                                            <input type="number" class="form-control" id="evento" placeholder="Evento" value="" required="">
+                                        <div class="col-md-3 mb-3">
+                                            <select class="form-control" id="perfil">
+                                                <option value="1">Pesquisador</option>
+                                                <option value="2">Extensionista</option>
+                                                <option value="3">Professor</option>
+                                            </select>
                                         </div>
                                         <div class="col-md-3 mb-3">
-                                            <button class="btn btn-primary btn-block" type="submit">Continue</button>
+                                            <select class="form-control" id="evento"></select>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <button class="btn btn-primary btn-block" id="continue" >Continue</button>
                                         </div>
                                         
                                     </div>
@@ -124,7 +131,7 @@
                                                 <div class="col-md-offset-3 col-md-6 col-xs-offset-2 col-xs-8  chart-icon">
                                                     <img src="assets/img/ens.png" class="img-responsive">
                                                 </div>
-                                                <p class="chart-desc col-xs-12">Ensino <span class="ens">50/100</span> </p>
+                                                <p class="chart-desc col-xs-12">Ensino <span class="ens" id="ensino_valores">50/100</span> </p>
                                             </div>
                                         </div>
                                         <div class="col-xs-4">
@@ -133,7 +140,7 @@
                                                 <div class="col-md-offset-3 col-md-6 col-xs-offset-2 col-xs-8  chart-icon">
                                                     <img src="assets/img/pes.png" class="img-responsive">
                                                 </div>
-                                                <p class="chart-desc col-xs-12">Pesquisa <span class="pes">50/100</span> </p>
+                                                <p class="chart-desc col-xs-12">Pesquisa <span class="pes" id="pesquisa_valores">50/100</span> </p>
                                             </div>
                                         </div>
                                         <div class="col-xs-4">
@@ -142,7 +149,7 @@
                                                 <div class="col-md-offset-3 col-md-6 col-xs-offset-2 col-xs-8 chart-icon">
                                                     <img src="assets/img/ext.png" class="img-responsive">
                                                 </div>
-                                                <p class="chart-desc col-xs-12">Extensão <span class="ext">50/100</span> </p>
+                                                <p class="chart-desc col-xs-12">Extensão <span class="ext" id="extensao_valores">50/100</span> </p>
                                             </div>
                                         </div>
                                     </div>
@@ -193,7 +200,71 @@
     
     <script src="assets/js/progressbar.min.js"></script>
     <script>
-        window.onload = function onLoad() {
+        function parseDate(date) {
+            if (!date) {
+                return null
+            }
+
+            let [year, month, day] = date.split('-')
+
+            return day + '/' + month + '/' + year
+        }
+
+        $('#continue').click(function(evt){
+            var id = $('#evento').val()
+            var user = $('#codigo').val()
+
+            var perfil = $('#perfil').val()
+            var periodo=0
+            var dataInicio
+            var dataFim
+
+            var event_ext, event_ens, event_pes
+            $.get('/api/events/'+id, function (data) {
+                periodo = data.data_limite
+                dataInicio = parseDate(data.data_inicio)
+                dataFim = parseDate(data.data_fim)
+
+                if(perfil == 1){
+                    event_ext = data.pesquisador_extensao
+                    event_ens = data.pesquisador_ensino
+                    event_pes = data.pesquisador_pesquisa
+                }else if(perfil == 2){
+                    event_ext = data.extensionista_extensao
+                    event_ens = data.extensionista_ensino
+                    event_pes = data.extensionista_pesquisa
+                }else if(perfil == 3){
+                    event_ext = data.professor_extensao
+                    event_ens = data.professor_ensino
+                    event_pes = data.professor_pesquisa
+                }
+                
+
+                console.log(JSON.stringify({ "periodo": parseInt(periodo), "dataInicio": dataInicio, "dataFim": dataFim, "login": user }))
+                $.ajax({
+                    type: "POST",
+                    url: "https://siaiap38.univali.br/sapi/progressao",
+                    data: JSON.stringify({ "periodo": parseInt(periodo), "dataInicio": dataInicio, "dataFim": dataFim, "login": user }),
+                    success: (data) => {            
+                        let scores = ['pesquisa', 'extensao', 'ensino_progressao', 'ensino_promocao']
+                        
+                        doCharts({esperado: event_ext, obtido: data.extensao.pontos},{esperado: event_ens, obtido: data.ensino_progressao.pontos},{esperado: event_pes, obtido: data.pesquisa.pontos})
+                        
+                    }
+                })
+            })
+            
+
+            evt.preventDefault()
+        })
+        function doCharts(exte, ensi, pesq){
+            $('#ext').html('')
+            $('#ens').html('')
+            $('#pes').html('')
+
+            $('#ensino_valores').html(ensi.obtido+'/'+ensi.esperado)
+            $('#pesquisa_valores').html(pesq.obtido+'/'+pesq.esperado)
+            $('#extensao_valores').html(exte.obtido+'/'+exte.esperado)
             var barExt = new ProgressBar.SemiCircle(ext, {
                 strokeWidth: 6,
                 easing: 'easeInOut',
@@ -204,7 +275,7 @@
                 svgStyle: null
             });
 
-            barExt.animate(0.50);  // Number from 0.0 to 1.0
+            barExt.animate(Math.min(exte.obtido/exte.esperado, 1));  // Number from 0.0 to 1.0
 
             var barEns = new ProgressBar.SemiCircle(ens, {
                 strokeWidth: 6,
@@ -216,7 +287,7 @@
                 svgStyle: null
             });
 
-            barEns.animate(0.25);  // Number from 0.0 to 1.0
+            barEns.animate(Math.min(ensi.obtido/ensi.esperado, 1));  // Number from 0.0 to 1.0
 
             var barPes = new ProgressBar.SemiCircle(pes, {
                 strokeWidth: 6,
@@ -228,7 +299,16 @@
                 svgStyle: null
             });
 
-            barPes.animate(0.80);  // Number from 0.0 to 1.0
+            barPes.animate(Math.min(pesq.obtido/pesq.esperado, 1));  // Number from 0.0 to 1.0
+        }
+
+        window.onload = function onLoad() {
+            $.get('/api/events/', function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#evento').append('<option value="'+data[i]._id+'">'+data[i].nome+'</option>')
+                }
+            })
+            doCharts(0.5, 0.4, 0.6)
         }
     </script>
     
