@@ -1,0 +1,181 @@
+<!-- Bootstrap core CSS     -->
+<link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Animation library for notifications   -->
+<link href="/assets/css/animate.min.css" rel="stylesheet"/>
+
+<!--  Light Bootstrap Table core CSS    -->
+<link href="/assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+
+<!--  Meu CSS    -->
+<link href="/assets/css/styles.css" rel="stylesheet"/>
+
+<!--     Fonts and icons     -->
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+<link href="/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="content">
+                        <div id="charts" class="p-4">
+                            <div class="row" >
+                                
+                                <div class="col-xs-4">
+                                    <div class="row">
+                                        <div id="ens"></div>
+                                        <div class="col-md-offset-3 col-md-6 col-xs-offset-2 col-xs-8  chart-icon">
+                                            <img src="/assets/img/ens.png" class="img-responsive">
+                                        </div>
+                                        <p class="chart-desc col-xs-12">Ensino <span class="ens" id="ensino_valores">50/100</span> </p>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="row">
+                                        <div id="pes"></div>
+                                        <div class="col-md-offset-3 col-md-6 col-xs-offset-2 col-xs-8  chart-icon">
+                                            <img src="/assets/img/pes.png" class="img-responsive">
+                                        </div>
+                                        <p class="chart-desc col-xs-12">Pesquisa <span class="pes" id="pesquisa_valores">50/100</span> </p>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="row">
+                                        <div id="ext"></div>
+                                        <div class="col-md-offset-3 col-md-6 col-xs-offset-2 col-xs-8 chart-icon">
+                                            <img src="/assets/img/ext.png" class="img-responsive">
+                                        </div>
+                                        <p class="chart-desc col-xs-12">Extensão <span class="ext" id="extensao_valores">50/100</span> </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                            
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--   Core JS Files   -->
+<script src="/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="/assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+<!--  Charts Plugin -->
+<script src="/assets/js/chartist.min.js"></script>
+
+
+<!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+<script src="/assets/js/light-bootstrap-dashboard.js"></script>
+
+
+<script src="/assets/js/progressbar.min.js"></script>
+
+<script>
+    var url = window.location.href
+    var parts = url.split('/')
+
+    var id = parts[parts.length - 3]
+    var user = parts[parts.length - 2]
+
+    var perfil = parts[parts.length - 1]
+    var periodo=0
+    var dataInicio
+    var dataFim
+
+    function parseDate(date) {
+        if (!date) {
+            return null
+        }
+
+        let [year, month, day] = date.split('-')
+
+        return day + '/' + month + '/' + year
+    }
+
+    var event_ext, event_ens, event_pes
+    $(document).ready(
+        
+        $.get('/api/events/'+id, function (data) {
+            periodo = data.data_limite
+            dataInicio = parseDate(data.data_inicio)
+            dataFim = parseDate(data.data_fim)
+
+            if(perfil == 1){
+                event_ext = data.pesquisador_extensao
+                event_ens = data.pesquisador_ensino
+                event_pes = data.pesquisador_pesquisa
+            }else if(perfil == 2){
+                event_ext = data.extensionista_extensao
+                event_ens = data.extensionista_ensino
+                event_pes = data.extensionista_pesquisa
+            }else if(perfil == 3){
+                event_ext = data.professor_extensao
+                event_ens = data.professor_ensino
+                event_pes = data.professor_pesquisa
+            }
+            
+
+            console.log(JSON.stringify({ "periodo": parseInt(periodo), "dataInicio": dataInicio, "dataFim": dataFim, "login": user }))
+            $.ajax({
+                type: "POST",
+                url: "https://siaiap38.univali.br/sapi/progressao",
+                data: JSON.stringify({ "periodo": parseInt(periodo), "dataInicio": dataInicio, "dataFim": dataFim, "login": user }),
+                success: (data) => {            
+                    let scores = ['pesquisa', 'extensao', 'ensino_progressao', 'ensino_promocao']
+                    
+                    doCharts({esperado: event_ext, obtido: data.extensao.pontos},{esperado: event_ens, obtido: data.ensino_progressao.pontos},{esperado: event_pes, obtido: data.pesquisa.pontos})
+                    
+                }
+            })
+        })
+    )
+
+    function doCharts(exte, ensi, pesq){
+            $('#ext').html('')
+            $('#ens').html('')
+            $('#pes').html('')
+
+            $('#ensino_valores').html(ensi.obtido+'/'+ensi.esperado)
+            $('#pesquisa_valores').html(pesq.obtido+'/'+pesq.esperado)
+            $('#extensao_valores').html(exte.obtido+'/'+exte.esperado)
+            var barExt = new ProgressBar.SemiCircle(ext, {
+                strokeWidth: 6,
+                easing: 'easeInOut',
+                duration: 1400,
+                color: '#22CBE9',
+                trailColor: '#ccc',
+                trailWidth: 1,
+                svgStyle: null
+            });
+
+            barExt.animate(Math.min(exte.obtido/exte.esperado, 1));  // Number from 0.0 to 1.0
+
+            var barEns = new ProgressBar.SemiCircle(ens, {
+                strokeWidth: 6,
+                easing: 'easeInOut',
+                duration: 1400,
+                color: '#F93248',
+                trailColor: '#ccc',
+                trailWidth: 1,
+                svgStyle: null
+            });
+
+            barEns.animate(Math.min(ensi.obtido/ensi.esperado, 1));  // Number from 0.0 to 1.0
+
+            var barPes = new ProgressBar.SemiCircle(pes, {
+                strokeWidth: 6,
+                easing: 'easeInOut',
+                duration: 1400,
+                color: '#FF9F3B',
+                trailColor: '#ccc',
+                trailWidth: 1,
+                svgStyle: null
+            });
+
+            barPes.animate(Math.min(pesq.obtido/pesq.esperado, 1));  // Number from 0.0 to 1.0
+        }
+</script>
