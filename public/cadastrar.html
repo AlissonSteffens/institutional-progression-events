@@ -170,7 +170,7 @@
                                         </div>
                                     </div>
                                     <hr class="mb-4">
-                                    <button class="btn btn-primary btn-lg btn-block" type="button" id="continue">Continue to checkout</button>
+                                    <button class="btn btn-primary btn-lg btn-block" type="button" id="continue">Cadastrar</button>
                                 </form>
                                 <div class="footer">
                                 </div>         
@@ -260,11 +260,22 @@
 				return false;
 			}
 			
-            if(!VerificarData(inicio.value) || !VerificarData(fim.value) || limite.value <= 0){
+            if(!VerificarData(inicio.value) || !VerificarData(fim.value)){
                 //alert(msg);
                 $.notify({
                     icon: 'pe-7s-attention',
-                    message: "Erro ao cadastrar evento: Data invalida"
+                    message: "Erro ao cadastrar evento: A data deve ser informada"
+                },{
+                    type: 'danger',
+                    timer: 4000
+                });   
+                return false;
+            }
+
+            if(limite.value <= 0){
+                $.notify({
+                    icon: 'pe-7s-attention',
+                    message: "Erro ao cadastrar evento: Período de avaliação inválido"
                 },{
                     type: 'danger',
                     timer: 4000
@@ -282,7 +293,7 @@
 				//alert(msg);
 				$.notify({
                     icon: 'pe-7s-attention',
-                    message: "Erro ao cadastrar evento: Valor menor que zero"
+                    message: "Erro ao cadastrar evento: Valor de extensão não pode ser abaixo de zero"
                 },{
                     type: 'danger',
                     timer: 4000
@@ -294,7 +305,7 @@
 				//alert(msg);
 				$.notify({
                     icon: 'pe-7s-attention',
-                    message: "Erro ao cadastrar evento: Valor menor que zero"
+                    message: "Erro ao cadastrar evento: Valor de ensino não pode ser abaixo de zero"
                 },{
                     type: 'danger',
                     timer: 4000
@@ -306,7 +317,7 @@
 				//alert(msg);
 				$.notify({
                     icon: 'pe-7s-attention',
-                    message: "Erro ao cadastrar evento: Valor menor que zero"
+                    message: "Erro ao cadastrar evento: Valor de pesquisa não pode ser abaixo de zero"
                 },{
                     type: 'danger',
                     timer: 4000
