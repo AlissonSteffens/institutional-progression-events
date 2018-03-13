@@ -94,32 +94,9 @@
                                 <p class="category">Lista de eventos e quantidade necessária para progressão</p>
                             </div>
                             <div class="content">
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th rowspan=2>Nome</th>
-                                        <th rowspan=2>Data Inicio</th>
-                                        <th rowspan=2>Data Fim</th>
-                                        <th rowspan=2>Período de Avalição</th>
-                                        <th colspan=3>Predominância em Extensão</th>
-                                        <th colspan=3>Predominância em Pesquisa</th>
-                                        <th colspan=3>Predominância em Ensino</th>
-                                        <th rowspan=2>Ações</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Extensão</th>
-                                        <th>Pesquisa</th>
-                                        <th>Ensino</th>
-                                        <th>Extensão</th>
-                                        <th>Pesquisa</th>
-                                        <th>Ensino</th>
-                                        <th>Extensão</th>
-                                        <th>Pesquisa</th>
-                                        <th>Ensino</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="chegou"></tbody>
-                                </table>
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    
+                                </div>
                                 <div class="footer">
                                     <hr>
                                     <div class="stats">
@@ -155,6 +132,103 @@
         </div>
     </div>
         
+</div>
+<div class="hidden" id="event-template">
+    <div class="panel panel-event">
+        <div class="panel-heading" role="tab" id="heading{$index}">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{$index}" aria-expanded="false" aria-controls="collapse{$index}">
+                        {$evento}
+                        </a>
+                    </h4>
+                </div>
+                <div class="col-md-6 text-right">
+                    {$delete}
+                </div>
+            </div>
+            
+            </div>
+            <div id="collapse{$index}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{$index}">
+            <div class="panel-body">
+                <div class="formulario">
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="firstName">Nome Evento</label>
+                            <input type="text" class="form-control" id="nome-evento" readonly value="{$evento}">
+                        </div>
+                    </div>
+                    <form class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="inicio">Data Início</label>
+                            <input class="datepicker form-control" type="text" readonly value="{$inicio}"/>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="fim">Data Fim</label>
+                            <input class="datepicker form-control" type="text" readonly value="{$fim}"/>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="limite">Período de avaliação</label>
+                            <input class="form-control" type="number" value="0" readonly value="{$periodo}"/>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <h5>Predominancia em Extensão</h5>
+                            <div class="row">  
+                                <div class="col-md-4 mb-3">
+                                    <label for="inicio">Pontuação Minima Extensão</label>
+                                    <input class="form-control" type="number" readonly value="{$ext-ext}"/>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="fim">Pontuação Minima Pesquisa</label>
+                                    <input class="form-control" type="number" readonly value="{$ext-pes}"/>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="limite">Pontuação Minima Ensino</label>
+                                    <input class="form-control" type="number" readonly value="{$ext-ens}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12  mb-3">
+                            <h5>Predominancia em Ensino</h5>
+                            <div class="row">  
+                                <div class="col-md-4 mb-3">
+                                    <label for="inicio">Pontuação Minima Extensão</label>
+                                    <input class="datepicker form-control" type="number" value="0" id="ens-ext"/>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="fim">Pontuação Minima Pesquisa</label>
+                                    <input class="datepicker form-control" type="number" value="0" id="ens-pes"/>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="limite">Pontuação Minima Ensino</label>
+                                    <input class="datepicker form-control" type="number" value="0" id="ens-ens"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <h5>Predominancia em Pesquisa</h5>
+                            <div class="row">  
+                                <div class="col-md-4 mb-3">
+                                    <label for="inicio">Pontuação Minima Extensão</label>
+                                    <input class="datepicker form-control" type="number" value="0" id="pes-ext"/>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="fim">Pontuação Minima Pesquisa</label>
+                                    <input class="datepicker form-control" type="number" value="0" id="pes-pes"/>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="limite">Pontuação Minima Ensino</label>
+                                    <input class="datepicker form-control" type="number" value="0" id="pes-ens"/>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

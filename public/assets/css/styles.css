@@ -36,3 +36,23 @@
     color: #F93248;
     background: #555;
 }
+.link-danger{
+    color: #F93248;
+}
+.link-danger:hover{
+    color: rgb(136, 27, 40);
+}
+.panel-event{
+    border-radius: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.panel-event .panel-heading{
+    border: 1px solid #eee;
+    border-radius: 0;
+    color: #333;
+    background-color: #fff;
+}
+.panel-event .panel-body{
+    background-color: #efefef;
+}
