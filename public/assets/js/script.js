@@ -17,7 +17,7 @@ $('#but').click(function () {
     $('#accordion').html('')
     for (var i = 0; i < data.length; i++) {
       
-      var deletes = '<a href="#" class="link-danger" data-idb="' + data[i]._id + '" data-nome="' + data[i].nome + '"> <i class="fa fa-times"></i></a>'
+      var deletes = '<a href="#" class="delete link-danger" data-idb="' + data[i]._id + '" data-nome="' + data[i].nome + '"> <i class="fa fa-times"></i></a>'
       var component = $('#event-template').html()
       component = component.split('{$evento}').join(data[i].nome)
       component = component.split('{$index}').join(i)
@@ -25,9 +25,18 @@ $('#but').click(function () {
       component = component.split('{$inicio}').join(data[i].data_inicio)
       component = component.split('{$fim}').join(data[i].data_fim)
       component = component.split('{$periodo}').join(data[i].data_limite)
+      
       component = component.split('{$ext-ext}').join(data[i].extensionista_extensao)
       component = component.split('{$ext-ens}').join(data[i].extensionista_ensino)
       component = component.split('{$ext-pes}').join(data[i].extensionista_pesquisa)
+
+      component = component.split('{$ens-ext}').join(data[i].extensionista_extensao)
+      component = component.split('{$ens-ens}').join(data[i].extensionista_ensino)
+      component = component.split('{$ens-pes}').join(data[i].extensionista_pesquisa)
+
+      component = component.split('{$pes-ext}').join(data[i].extensionista_extensao)
+      component = component.split('{$pes-ens}').join(data[i].extensionista_ensino)
+      component = component.split('{$pes-pes}').join(data[i].extensionista_pesquisa)
       $('#accordion').append(component)
     }
   })
