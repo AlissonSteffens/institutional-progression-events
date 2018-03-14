@@ -5,8 +5,13 @@ const Event = require('../models/event')
 
 const router = express.Router()
 
+
 router.get('/', async (req, res) => {
   const result = await asyncHandler.handleAsyncMethod(dbController.getSchema, [Event])
+
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With")
+
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 
