@@ -21,6 +21,10 @@ router.get('/:evento', async (req, res) => {
 })
 
 router.get('/:evento/:usuario/:perfil', async (req, res) => {
+  
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With")
+
   res.type('text/html')
   res.sendfile('public/chart.html')
 })
