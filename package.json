@@ -25,11 +25,11 @@
   },
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.17.2",
-    "express": "^4.15.4",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.0",
     "mongodb": "^2.2.33",
     "mongoose": "^5.0.6",
-    "pug": "^2.0.0-rc.4"
+    "pug": "^2.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0",
