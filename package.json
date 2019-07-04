@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "test": "standard",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "standard": {
     "ignore": [
@@ -29,10 +31,12 @@
     "express": "^4.16.0",
     "mongodb": "^2.2.33",
     "mongoose": "^5.2.12",
-    "pug": "^2.0.0"
+    "pug": "^2.0.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0",
     "standard": "^10.0.3"
-  }
+  },
+  "snyk": true
 }
